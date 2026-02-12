@@ -1,0 +1,17 @@
+{
+  "name": "JSON Private Key 提取器",
+  "short_name": "私鑰提取器",
+  "description": "支援拖曳檔案、瀏覽上傳或直接貼上 JSON 內容的私鑰提取工具",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#1e293b",
+  "icons": [
+    {
+      "src": "assets/favicon/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

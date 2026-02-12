@@ -1,0 +1,32 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run tests in Docker
+        run: docker compose up --build --exit-code-from test-runner
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+      - name: Upload Playwright videos
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-videos
+          path: playwright-report-videos/
+          retention-days: 30

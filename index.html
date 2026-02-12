@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSON Private Key 提取器</title>
+    <meta name="theme-color" content="#1e293b">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/favicon/favicon.png">
+    <link rel="icon" type="image/png" href="assets/favicon/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -88,6 +92,15 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker 註冊成功', reg))
+                    .catch(err => console.log('Service Worker 註冊失敗', err));
+            });
+        }
+    </script>
 </body>
 
 </html>
