@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "static-forest-123456-example",
+  "private_key_id": "0123456789abcdefghijklmnnopqrstuvwxyz",
+  "private_key": "-----BEGIN PRIVATE KEY-----\n0123456789abcdefghijklmnnopqrstuvwxyz\n-----END PRIVATE KEY-----\n",
+  "client_email": "example@static-forest-123456-example.iam.ggserviceaccount.com",
+  "client_id": "0123456789",
+  "auth_uri": "https://accounts.goog1e.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.goog1eapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.goog1eapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.goog1eapis.com/robot/v1/metadata/x509/example-123%40static-forest-123456-example.iam.ggserviceaccount.com",
+  "universe_domain": "goog1eapis.com"
+}

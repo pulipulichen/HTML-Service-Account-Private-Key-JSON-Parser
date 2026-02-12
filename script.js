@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultKey = document.getElementById('resultKey');
     const copyBtn = document.getElementById('copyBtn');
     const statusMsg = document.getElementById('statusMsg');
+    const loadExampleBtn = document.getElementById('loadExampleBtn');
 
     // --- 核心邏輯：解析與提取 ---
     function extractAndDisplay(jsonString) {
@@ -99,7 +100,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 4. 複製功能
+    // 4. 載入範例按鈕
+    loadExampleBtn.addEventListener('click', async () => {
+        try {
+            const response = await fetch('static-forest-123456-example.json');
+            if (!response.ok) throw new Error('無法載入範例檔案');
+            const data = await response.text();
+            rawJsonInput.value = data;
+            extractAndDisplay(data);
+        } catch (err) {
+            showStatus('無法載入範例: ' + err.message, 'text-red-600');
+        }
+    });
+
+    // 5. 複製功能
     copyBtn.addEventListener('click', () => {
         if (!resultKey.value) return;
 
