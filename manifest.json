@@ -1,6 +1,6 @@
 {
-  "name": "JSON Private Key 提取器",
-  "short_name": "私鑰提取器",
+  "name": "JSON Private Key",
+  "short_name": "JSON Key",
   "description": "支援拖曳檔案、瀏覽上傳或直接貼上 JSON 內容的私鑰提取工具",
   "start_url": "./index.html",
   "display": "standalone",
