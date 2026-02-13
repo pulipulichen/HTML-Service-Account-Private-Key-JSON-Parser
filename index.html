@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON Private Key 提取器</title>
+    <title>JSON 私鑰檔案分析器</title>
     <meta name="theme-color" content="#1e293b">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="assets/favicon/favicon.png">
@@ -17,7 +17,7 @@
     <div class="max-w-3xl mx-auto">
         <!-- 標題區 -->
         <header class="mb-8 text-center">
-            <h1 class="text-3xl font-bold text-slate-800">JSON 私鑰提取工具</h1>
+            <h1 class="text-3xl font-bold text-slate-800">JSON 私鑰檔案分析器</h1>
             <p class="text-slate-600 mt-2">支援拖曳檔案、瀏覽上傳或直接貼上 JSON 內容</p>
         </header>
 
@@ -62,7 +62,28 @@
 
             <!-- 結果顯示區域 -->
             <div class="bg-slate-100 p-6 border-t border-slate-200">
-                <div class="flex justify-between items-center mb-3">
+                <!-- Client Email -->
+                <div class="mb-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="block text-sm font-semibold text-slate-700">Client Email:</label>
+                        <button id="copyEmailBtn"
+                            class="flex items-center space-x-1 text-blue-600 hover:text-blue-800 text-sm font-medium focus:outline-none disabled:opacity-50"
+                            disabled>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            <span>複製電子郵件</span>
+                        </button>
+                    </div>
+                    <input type="text" id="resultEmail" readonly
+                        class="w-full p-3 bg-white border border-slate-300 rounded-lg text-sm font-mono text-slate-800 focus:outline-none"
+                        placeholder="解析後電子郵件將顯示於此...">
+                </div>
+
+                <!-- Private Key -->
+                <div class="flex justify-between items-center mb-2">
                     <label class="block text-sm font-semibold text-slate-700">提取出的私鑰:</label>
                     <button id="copyBtn"
                         class="flex items-center space-x-1 text-blue-600 hover:text-blue-800 text-sm font-medium focus:outline-none disabled:opacity-50"

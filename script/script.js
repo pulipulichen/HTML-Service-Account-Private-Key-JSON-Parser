@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const rawJsonInput = document.getElementById('rawJsonInput');
     const processBtn = document.getElementById('processBtn');
     const resultKey = document.getElementById('resultKey');
+    const resultEmail = document.getElementById('resultEmail');
     const copyBtn = document.getElementById('copyBtn');
+    const copyEmailBtn = document.getElementById('copyEmailBtn');
     const statusMsg = document.getElementById('statusMsg');
     const loadExampleBtn = document.getElementById('loadExampleBtn');
 
@@ -12,28 +14,57 @@ document.addEventListener('DOMContentLoaded', () => {
     function extractAndDisplay(jsonString) {
         try {
             const data = JSON.parse(jsonString);
+            let keyFound = false;
+            let emailFound = false;
 
-            // 檢查是否存在 private_key
+            // 檢查 private_key
             if (data && data.private_key) {
                 resultKey.value = data.private_key;
-                showStatus('成功提取 Private Key！', 'text-green-600');
                 copyBtn.disabled = false;
-            } else if (data && typeof data === 'object') {
-                // 如果沒找到，嘗試在深層尋找 (選擇性功能)
+                keyFound = true;
+            } else {
                 const found = findKeyDeep(data, 'private_key');
                 if (found) {
                     resultKey.value = found;
-                    showStatus('成功從深層結構中提取 Private Key！', 'text-green-600');
                     copyBtn.disabled = false;
+                    keyFound = true;
                 } else {
-                    throw new Error('找不到 "private_key" 欄位');
+                    resultKey.value = '';
+                    copyBtn.disabled = true;
                 }
+            }
+
+            // 檢查 client_email
+            if (data && data.client_email) {
+                resultEmail.value = data.client_email;
+                copyEmailBtn.disabled = false;
+                emailFound = true;
             } else {
-                throw new Error('無效的 JSON 結構');
+                const found = findKeyDeep(data, 'client_email');
+                if (found) {
+                    resultEmail.value = found;
+                    copyEmailBtn.disabled = false;
+                    emailFound = true;
+                } else {
+                    resultEmail.value = '';
+                    copyEmailBtn.disabled = true;
+                }
+            }
+
+            if (keyFound || emailFound) {
+                let msg = '成功提取 ';
+                if (keyFound && emailFound) msg += '電子郵件與私鑰！';
+                else if (keyFound) msg += '私鑰！';
+                else msg += '電子郵件！';
+                showStatus(msg, 'text-green-600');
+            } else {
+                throw new Error('找不到相關欄位');
             }
         } catch (err) {
             resultKey.value = '';
+            resultEmail.value = '';
             copyBtn.disabled = true;
+            copyEmailBtn.disabled = true;
             showStatus('解析錯誤: ' + err.message, 'text-red-600');
         }
     }
@@ -122,32 +153,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 5. 複製功能
-    copyBtn.addEventListener('click', () => {
-        if (!resultKey.value) return;
+    function setupCopyBtn(btn, input) {
+        btn.addEventListener('click', () => {
+            if (!input.value) return;
 
-        resultKey.select();
-        resultKey.setSelectionRange(0, 99999); // 手機端支援
-
-        try {
-            // 根據指令使用 execCommand('copy')
-            const successful = document.execCommand('copy');
-            if (successful) {
-                const originalText = copyBtn.innerHTML;
-                copyBtn.innerHTML = `
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>已複製！</span>
-                `;
-                copyBtn.classList.replace('text-blue-600', 'text-green-600');
-
-                setTimeout(() => {
-                    copyBtn.innerHTML = originalText;
-                    copyBtn.classList.replace('text-green-600', 'text-blue-600');
-                }, 2000);
+            input.select();
+            if (input.setSelectionRange) {
+                input.setSelectionRange(0, 99999); // 手機端支援
             }
-        } catch (err) {
-            showStatus('無法複製，請手動全選複製', 'text-red-600');
-        }
-    });
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = `
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>已複製！</span>
+                    `;
+                    btn.classList.replace('text-blue-600', 'text-green-600');
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.classList.replace('text-green-600', 'text-blue-600');
+                    }, 2000);
+                }
+            } catch (err) {
+                showStatus('無法複製，請手動全選複製', 'text-red-600');
+            }
+        });
+    }
+
+    setupCopyBtn(copyBtn, resultKey);
+    setupCopyBtn(copyEmailBtn, resultEmail);
 });

@@ -14,7 +14,7 @@ test('應該能正確解析 JSON 中的 private_key', async ({ page }) => {
   expect(resultKey).toBe('test-private-key-123');
   
   const statusMsg = page.locator('#statusMsg');
-  await expect(statusMsg).toContainText('成功提取 Private Key');
+  await expect(statusMsg).toContainText('成功提取私鑰');
 });
 
 test('應該能從深層結構中提取 private_key', async ({ page }) => {
