@@ -64,7 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = (event) => extractAndDisplay(event.target.result);
+            reader.onload = (event) => {
+                const content = event.target.result;
+                rawJsonInput.value = content;
+                extractAndDisplay(content);
+            };
             reader.readAsText(file);
         }
     });
@@ -85,7 +89,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const file = e.dataTransfer.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = (event) => extractAndDisplay(event.target.result);
+            reader.onload = (event) => {
+                const content = event.target.result;
+                rawJsonInput.value = content;
+                extractAndDisplay(content);
+            };
             reader.readAsText(file);
         }
     });
@@ -103,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. 載入範例按鈕
     loadExampleBtn.addEventListener('click', async () => {
         try {
-            const response = await fetch('static-forest-123456-example.json');
+            const response = await fetch('./demo/static-forest-123456-example.json');
             if (!response.ok) throw new Error('無法載入範例檔案');
             const data = await response.text();
             rawJsonInput.value = data;

@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="assets/favicon/favicon.png">
     <link rel="icon" type="image/png" href="assets/favicon/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/style.css">
 </head>
 
 <body class="bg-slate-50 min-h-screen p-4 md:p-8 font-sans">
@@ -27,42 +27,34 @@
 
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
             <!-- 輸入區域 -->
-            <div class="p-6 space-y-6">
-
-                <!-- 拖曳與上傳區域 -->
-                <div id="dropZone"
-                    class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center transition-all cursor-pointer hover:border-blue-400 hover:bg-blue-50">
-                    <input type="file" id="fileInput" class="hidden" accept=".json,application/json">
-                    <div class="flex flex-col items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-slate-400 mb-3" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                        </svg>
-                        <p class="text-slate-700 font-medium">將 JSON 檔案拖曳至此</p>
-                        <p class="text-slate-400 text-sm mt-1">或者 <span class="text-blue-600 underline">點擊瀏覽檔案</span>
-                        </p>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                    <!-- 左側：拖曳與上傳區域 -->
+                    <div id="dropZone"
+                        class="flex flex-col justify-center border-2 border-dashed border-slate-300 rounded-xl p-8 text-center transition-all cursor-pointer hover:border-blue-400 hover:bg-blue-50">
+                        <input type="file" id="fileInput" class="hidden" accept=".json,application/json">
+                        <div class="flex flex-col items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-slate-400 mb-3" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                            <p class="text-slate-700 font-medium">將 JSON 檔案拖曳至此</p>
+                            <p class="text-slate-400 text-sm mt-1">或者 <span class="text-blue-600 underline">點擊瀏覽檔案</span>
+                            </p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="relative">
-                    <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                        <div class="w-full border-t border-slate-200"></div>
+                    <!-- 右側：貼上區域 -->
+                    <div class="flex flex-col">
+                        <textarea id="rawJsonInput"
+                            class="flex-grow w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm font-mono"
+                            placeholder='例如: { "private_key": "..." }'></textarea>
+                        <button id="processBtn"
+                            class="mt-3 w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                            解析 JSON
+                        </button>
                     </div>
-                    <div class="relative flex justify-center text-sm">
-                        <span class="px-2 bg-white text-slate-500 uppercase">或直接貼上</span>
-                    </div>
-                </div>
-
-                <!-- 貼上區域 -->
-                <div>
-                    <textarea id="rawJsonInput" rows="4"
-                        class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm font-mono"
-                        placeholder='例如: { "private_key": "..." }'></textarea>
-                    <button id="processBtn"
-                        class="mt-3 w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
-                        解析 JSON
-                    </button>
                 </div>
             </div>
 
@@ -95,11 +87,11 @@
         </footer>
     </div>
 
-    <script src="script.js"></script>
+    <script src="./script/script.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
+                navigator.serviceWorker.register('./script/sw.js')
                     .then(reg => console.log('Service Worker 註冊成功', reg))
                     .catch(err => console.log('Service Worker 註冊失敗', err));
             });
