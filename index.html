@@ -19,10 +19,6 @@
         <header class="mb-8 text-center">
             <h1 class="text-3xl font-bold text-slate-800">JSON 私鑰提取工具</h1>
             <p class="text-slate-600 mt-2">支援拖曳檔案、瀏覽上傳或直接貼上 JSON 內容</p>
-            <button id="loadExampleBtn"
-                class="mt-4 inline-flex items-center px-3 py-1.5 border border-slate-300 shadow-sm text-sm font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
-                載入範例檔案
-            </button>
         </header>
 
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
@@ -50,10 +46,16 @@
                         <textarea id="rawJsonInput"
                             class="flex-grow w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all text-sm font-mono"
                             placeholder='例如: { "private_key": "..." }'></textarea>
-                        <button id="processBtn"
-                            class="mt-3 w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
-                            解析 JSON
-                        </button>
+                        <div class="grid grid-cols-2 gap-3 mt-3">
+                            <button id="loadExampleBtn"
+                                class="inline-flex items-center justify-center px-3 py-1.5 border border-slate-300 shadow-sm text-sm font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                                載入範例檔案
+                            </button>
+                            <button id="processBtn"
+                                class="w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold py-2 px-4 rounded-lg transition-colors">
+                                解析 JSON
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
